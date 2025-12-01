@@ -1,5 +1,3 @@
-
-
 object Day01Solver extends DaySolver {
   override def solveFirstStar(input: List[String]): String = {
     val start = 50
@@ -14,7 +12,6 @@ object Day01Solver extends DaySolver {
     
     numberOfZeros.toString
   }
-
 
   def split(instruction: String): Int = 
     instruction match
@@ -37,11 +34,7 @@ object Day01Solver extends DaySolver {
     numberOfZeros.toString
   }
 
-  override def expectedFirstStar(): String = {
-    "3"
-  }
-
-  override def expectedSecondStar(): String = {
-    "6"
-  }
+  override def expectedFirstStar(): String = "3"
+  
+  override def expectedSecondStar(): String = "6"
 }
