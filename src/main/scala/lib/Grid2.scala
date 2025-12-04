@@ -59,6 +59,12 @@ case class Grid2[T](width: Int, height: Int, data: Vector[T]) {
       }
       .mkString("\n")
   }
+
+  def filter(f: T => Boolean): Vector[T] = {
+    data.filter(f)
+  }
+
+  def allNeighbors(pos: Vector2) = Direction.allNeighbors(pos).filter(inBounds)
 }
 
 object Grid2 {
