@@ -1,8 +1,10 @@
+import SeqExtension._
+
 object Day06Solver extends DaySolver {
   override def solveFirstStar(input: List[String]): String = {
-    val splitInput = input.map(_.split(" ").filter(!_.isEmpty).toVector)
+    val splitInput = input.map(_.split(" ").filter(!_.isEmpty))
     val operators :: rawNumbers = splitInput.reverse
-    val numbers = rawNumbers.transpose.toVector
+    val numbers = rawNumbers.transpose
 
     val colResults = operators.zipWithIndex.map((operator: String, i: Int) => {
       val ns = numbers(i).map(_.toLong)
@@ -17,19 +19,12 @@ object Day06Solver extends DaySolver {
   def isEmptyList(l: List[String]) = l.forall(_ == " ")
 
   override def solveSecondStar(input: List[String]): String = {
-    val withoutOperators = input.dropRight(1)
-
-    val transposedInput = withoutOperators
-      .map(_.split("").toList)
+    val numbers = input
+      .dropRight(1)
+      .map(_.split(""))
       .transpose
-    val emptyIndexes = transposedInput.zipWithIndex.collect{ case (a, index) if (isEmptyList(a)) => index}
-    
-    val partitions = (emptyIndexes.head + 1) :: (emptyIndexes, emptyIndexes drop 1).zipped.map((a, b) => b - a)
-    val itr = transposedInput.iterator
-    val numbers = partitions
-      .map(itr.take(_).toList.filter(!isEmptyList(_)))
-      .toList
-      .map(l => l.map(_.filter(_ != " ").mkString("").toLong))
+      .split(isEmptyList)
+      .map(l => l.map(_.mkString("").trim.toLong))
 
     val operators = input.reverse.head.split(" ").filter(!_.isEmpty)
 
